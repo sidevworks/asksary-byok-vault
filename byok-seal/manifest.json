@@ -8,8 +8,8 @@
     },
     {
       "path": "api/web-byok.js",
-      "sha256": "dc10e183cb1a532c857d633eab6f9fab9dcb3e5a50fd9bac4415712cc6aa9363",
-      "bytes": 4421
+      "sha256": "a124a4fa660155dad5f819ae33167e00ee369c1cfcd089125de4d90cc01252e7",
+      "bytes": 4697
     },
     {
       "path": "lib/byok-clients.js",
@@ -28,8 +28,8 @@
     },
     {
       "path": "lib/byok-vault.js",
-      "sha256": "0732c5edfad39a053141f704278c5ec22db0f124025de5c03cdee6693fcc00ad",
-      "bytes": 13849
+      "sha256": "efd48395daaec1b340fbb728c1b8932dfffcd3d46fc095a9824bb99e21fac988",
+      "bytes": 14751
     },
     {
       "path": "scripts/byok-verify.mjs",
@@ -41,10 +41,10 @@
     "text": "match /userProviderKeys/{userId} {\n      allow read, write: if false;\n    }",
     "sha256": "edd743e9c30bcdc6beb4681bea6a0265bcb9a1fb97b4878b692a8306346a9125"
   },
-  "sealedAt": "2026-09-05T14:36:50.930Z",
-  "sourceCommit": "98181a85c39b01f52ea9cd4da56e2c8a931e944b",
-  "reason": "maintenance",
-  "note": "Record clean source commit 98181a8 after the initial commit; no code change to the sealed set.",
-  "previousManifestHash": "af5fd7638d16d4d68309484512fcb1b75ef4380fda7739b596878f8510b4ae07",
-  "manifestHash": "3ba84e6068cd9d67fd46ed77f4f6f2583e92b6ec6f0535228e4cdd5b02f2c560"
+  "sealedAt": "2026-09-05T19:44:15.839Z",
+  "sourceCommit": "bc282177c995248f1fa31abae208a0c3db0a3038",
+  "reason": "upgrade",
+  "note": "Accept permission-scoped provider keys during validation; log refusals with provider and upstream status; no change to encryption or storage.",
+  "previousManifestHash": "3ba84e6068cd9d67fd46ed77f4f6f2583e92b6ec6f0535228e4cdd5b02f2c560",
+  "manifestHash": "b1db19b3ea3440e535f3e685a5f6c04c4481cc2379f8ae8d6a892324d06b2463"
 }

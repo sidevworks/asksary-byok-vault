@@ -58,6 +58,7 @@ export default async function handler(req, res) {
     return res.status(403).json({ error: 'registration_required' });
   }
   const uid = decoded.uid;
+  let body = null;
 
   try {
     if (req.method === 'GET') {
@@ -69,7 +70,7 @@ export default async function handler(req, res) {
     }
     if (!isByokConfigured()) return res.status(503).json({ error: 'BYOK_NOT_CONFIGURED' });
 
-    const body = readJsonBody(req);
+    body = readJsonBody(req);
     if (!body) return res.status(400).json({ error: 'INVALID_JSON' });
 
     if (req.method === 'DELETE') {
@@ -94,6 +95,8 @@ export default async function handler(req, res) {
     return res.status(200).json(saved);
   } catch (error) {
     if (error instanceof ByokError) {
+      // Provider name and upstream status only; never the key or the body.
+      console.warn(JSON.stringify({ evt: 'byok_key_refused', uid, method: req.method, provider: String(body?.provider || '').slice(0, 20), code: error.code, ...(error.details || {}) }));
       return res.status(error.status).json({ error: error.code, ...(error.details || {}) });
     }
     // Deliberately do not log the error object: a provider SDK error can
