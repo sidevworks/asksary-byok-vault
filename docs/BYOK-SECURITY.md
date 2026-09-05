@@ -4,7 +4,7 @@
 `lib/byok-vault.js`, `lib/byok-context.js`, `lib/byok-clients.js`,
 `api/web-byok.js` and `firestore.rules`. When the code changes, this document
 changes in the same commit. If you find a difference, that is a bug and we want
-to hear about it: security@asksary.com.
+to hear about it: team@asksary.com.
 
 AskSary lets you use your own OpenAI, Anthropic, Google Gemini or xAI key, or
 any OpenAI‑compatible endpoint. Requests served on your key cost you zero
@@ -150,4 +150,4 @@ curl https://www.asksary.com/api/web-byok-seal
 
 ## Reporting a problem
 
-Email security@asksary.com. Please do not include your API key in the report.
+Email team@asksary.com. Please do not include your API key in the report.
