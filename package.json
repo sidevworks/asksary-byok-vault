@@ -1,0 +1,10 @@
+{
+  "name": "asksary-byok-vault",
+  "private": true,
+  "type": "module",
+  "description": "Sealed, publicly verifiable key-handling code for AskSary bring-your-own-key. See docs/BYOK-SEALED-VAULT.md.",
+  "scripts": {
+    "verify": "node scripts/byok-verify.mjs",
+    "test:byok-seal": "node scripts/test-byok-seal.mjs"
+  }
+}

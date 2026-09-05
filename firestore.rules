@@ -1,0 +1,14 @@
+rules_version = '2';
+// Excerpt of AskSary's firestore.rules: only the sealed BYOK block is exported.
+// The verifier checks that this exact block is present.
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // ─── User Provider Keys (BYOK) ────────────────────────────────────────────
+    // Encrypted user API keys. Server-only through the Admin SDK; no client
+    // may read, list, create, update or delete these documents. See
+    // docs/BYOK-SECURITY.md.
+    match /userProviderKeys/{userId} {
+      allow read, write: if false;
+    }
+  }
+}

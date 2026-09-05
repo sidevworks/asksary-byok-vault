@@ -1,0 +1,50 @@
+{
+  "sealVersion": 1,
+  "files": [
+    {
+      "path": "api/web-byok-seal.js",
+      "sha256": "01b4765d377f7652916ee7353a56822f27da7f89c85d82592f5f8205091e191d",
+      "bytes": 2997
+    },
+    {
+      "path": "api/web-byok.js",
+      "sha256": "dc10e183cb1a532c857d633eab6f9fab9dcb3e5a50fd9bac4415712cc6aa9363",
+      "bytes": 4421
+    },
+    {
+      "path": "lib/byok-clients.js",
+      "sha256": "b394448dbf930f2b7f46963dd65552f52706016a04e5976270ebbcfb9225dc0d",
+      "bytes": 3215
+    },
+    {
+      "path": "lib/byok-context.js",
+      "sha256": "27439562be53e58852b2240540b5028635bd6f2c6a48f70156a5d85ab705221e",
+      "bytes": 2737
+    },
+    {
+      "path": "lib/byok-seal.js",
+      "sha256": "655614ee74d57b748110a46f06874672a0c2d75d84164886faea029708c33d99",
+      "bytes": 6369
+    },
+    {
+      "path": "lib/byok-vault.js",
+      "sha256": "0732c5edfad39a053141f704278c5ec22db0f124025de5c03cdee6693fcc00ad",
+      "bytes": 13849
+    },
+    {
+      "path": "scripts/byok-verify.mjs",
+      "sha256": "d0b6c62df63e7b5c41715b86b06b316712424dbf587b6aab5b951c9b3b9262ec",
+      "bytes": 7363
+    }
+  ],
+  "ruleBlock": {
+    "text": "match /userProviderKeys/{userId} {\n      allow read, write: if false;\n    }",
+    "sha256": "edd743e9c30bcdc6beb4681bea6a0265bcb9a1fb97b4878b692a8306346a9125"
+  },
+  "sealedAt": "2026-09-05T14:36:50.930Z",
+  "sourceCommit": "98181a85c39b01f52ea9cd4da56e2c8a931e944b",
+  "reason": "maintenance",
+  "note": "Record clean source commit 98181a8 after the initial commit; no code change to the sealed set.",
+  "previousManifestHash": "af5fd7638d16d4d68309484512fcb1b75ef4380fda7739b596878f8510b4ae07",
+  "manifestHash": "3ba84e6068cd9d67fd46ed77f4f6f2583e92b6ec6f0535228e4cdd5b02f2c560"
+}
