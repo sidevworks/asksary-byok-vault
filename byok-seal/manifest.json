@@ -28,8 +28,8 @@
     },
     {
       "path": "lib/byok-vault.js",
-      "sha256": "efd48395daaec1b340fbb728c1b8932dfffcd3d46fc095a9824bb99e21fac988",
-      "bytes": 14751
+      "sha256": "15f3b83b54f876dcdfa3e830132ff7d0999156a0a3a06564ed98ce7abdc59da8",
+      "bytes": 15408
     },
     {
       "path": "scripts/byok-verify.mjs",
@@ -41,10 +41,10 @@
     "text": "match /userProviderKeys/{userId} {\n      allow read, write: if false;\n    }",
     "sha256": "edd743e9c30bcdc6beb4681bea6a0265bcb9a1fb97b4878b692a8306346a9125"
   },
-  "sealedAt": "2026-09-05T19:44:15.839Z",
-  "sourceCommit": "bc282177c995248f1fa31abae208a0c3db0a3038",
+  "sealedAt": "2026-09-05T19:46:40.616Z",
+  "sourceCommit": "83c49282bfbb48cc48c9245eace09c8edd4a0593",
   "reason": "upgrade",
-  "note": "Accept permission-scoped provider keys during validation; log refusals with provider and upstream status; no change to encryption or storage.",
-  "previousManifestHash": "3ba84e6068cd9d67fd46ed77f4f6f2583e92b6ec6f0535228e4cdd5b02f2c560",
-  "manifestHash": "b1db19b3ea3440e535f3e685a5f6c04c4481cc2379f8ae8d6a892324d06b2463"
+  "note": "Key listing includes a per-month usage tally written by settlement; no change to encryption, validation or storage of the key itself.",
+  "previousManifestHash": "b1db19b3ea3440e535f3e685a5f6c04c4481cc2379f8ae8d6a892324d06b2463",
+  "manifestHash": "fa576a1bd588605108f7fed43368f2b61f04511126899edea828e439e37114e1"
 }
