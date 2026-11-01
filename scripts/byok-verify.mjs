@@ -14,6 +14,7 @@
 import { createHash } from 'node:crypto';
 import { readFile } from 'node:fs/promises';
 import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 
 const SEAL_VERSION = 1;
 const DOMAIN_FILE = 'asksary-byok-seal/v1/file';
@@ -129,6 +130,16 @@ async function main() {
   return report.ok ? 0 : 1;
 }
 
-if (process.argv[1] && path.resolve(process.argv[1]) === new URL(import.meta.url).pathname) {
+// `new URL(import.meta.url).pathname` is PERCENT-ENCODED: a checkout whose path
+// contains a space yields ".../Operation%20SOS/...", which never equals the
+// decoded path from process.argv[1]. The comparison silently failed, this block
+// never ran, and the verifier exited 0 having printed nothing — the worst
+// outcome for a seal check, because an unnoticed failure reads exactly like a
+// pass. fileURLToPath decodes correctly, and also handles the Windows
+// drive-letter form that `pathname` mangles.
+//
+// Note byok-seal.mjs already used fileURLToPath. Only the public-facing
+// verifier — the one a stranger runs, on a path we do not control — had this.
+if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
   main().then(code => process.exit(code), error => { console.error(error); process.exit(2); });
 }

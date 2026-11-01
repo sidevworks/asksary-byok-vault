@@ -8,8 +8,8 @@
     },
     {
       "path": "api/web-byok.js",
-      "sha256": "a124a4fa660155dad5f819ae33167e00ee369c1cfcd089125de4d90cc01252e7",
-      "bytes": 4697
+      "sha256": "9a75b7a73e3cd3e70d4485c27398e5169a47081e14b541fce91bac2548b88e7c",
+      "bytes": 4681
     },
     {
       "path": "lib/byok-clients.js",
@@ -18,8 +18,8 @@
     },
     {
       "path": "lib/byok-context.js",
-      "sha256": "27439562be53e58852b2240540b5028635bd6f2c6a48f70156a5d85ab705221e",
-      "bytes": 2737
+      "sha256": "1c61dde26b7f6e271c6ae90204d6f448209f460fb880fffd90f917aaee0bc71c",
+      "bytes": 2844
     },
     {
       "path": "lib/byok-seal.js",
@@ -28,23 +28,23 @@
     },
     {
       "path": "lib/byok-vault.js",
-      "sha256": "15f3b83b54f876dcdfa3e830132ff7d0999156a0a3a06564ed98ce7abdc59da8",
-      "bytes": 15408
+      "sha256": "5d14db2ad0876d861082fe759073bfb7185dc365efabee758f1bef9fb610c622",
+      "bytes": 15522
     },
     {
       "path": "scripts/byok-verify.mjs",
-      "sha256": "d0b6c62df63e7b5c41715b86b06b316712424dbf587b6aab5b951c9b3b9262ec",
-      "bytes": 7363
+      "sha256": "0cb0ab790dc834a443b7fd3e28c837bcc1646ec23efe8213f4c6c606f0a348fc",
+      "bytes": 8073
     }
   ],
   "ruleBlock": {
     "text": "match /userProviderKeys/{userId} {\n      allow read, write: if false;\n    }",
     "sha256": "edd743e9c30bcdc6beb4681bea6a0265bcb9a1fb97b4878b692a8306346a9125"
   },
-  "sealedAt": "2026-09-05T19:46:40.616Z",
-  "sourceCommit": "83c49282bfbb48cc48c9245eace09c8edd4a0593",
+  "sealedAt": "2026-11-01T09:13:38.791Z",
+  "sourceCommit": "662b362430428f1f63205fd90f3982a0e8bdc568",
   "reason": "upgrade",
-  "note": "Key listing includes a per-month usage tally written by settlement; no change to encryption, validation or storage of the key itself.",
-  "previousManifestHash": "b1db19b3ea3440e535f3e685a5f6c04c4481cc2379f8ae8d6a892324d06b2463",
-  "manifestHash": "fa576a1bd588605108f7fed43368f2b61f04511126899edea828e439e37114e1"
+  "note": "New provider: Meta (api.meta.ai, Muse models). byok-context adds 'meta' to BYOK_PROVIDERS and the Meta catalogue mapping; byok-vault validates a Meta key with GET https://api.meta.ai/v1/models. No change to encryption or storage.",
+  "previousManifestHash": "353d158e8da7c4a2125aa94d12d7868504f4c80f566628f3e514ffe1af88164a",
+  "manifestHash": "8ed4b4d21012e26cfde77b149521c674e893572b8dc71b0f4a60691e89faf8f8"
 }

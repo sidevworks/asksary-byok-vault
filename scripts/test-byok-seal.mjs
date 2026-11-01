@@ -5,12 +5,13 @@ import { execFile } from 'node:child_process';
 import { cp, mkdir, mkdtemp, readFile, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { promisify } from 'node:util';
 import { SEALED_FILES, SEALED_RULE_BLOCK, buildManifest, canonicalJson, manifestHash, verifyManifest } from '../lib/byok-seal.js';
 import { verify as publicVerify } from './byok-verify.mjs';
 
 const run = promisify(execFile);
-const ROOT = path.resolve(new URL('..', import.meta.url).pathname);
+const ROOT = path.resolve(fileURLToPath(new URL('..', import.meta.url)));
 const MANIFEST = path.join(ROOT, 'byok-seal', 'manifest.json');
 const VERIFIER = path.join(ROOT, 'scripts', 'byok-verify.mjs');
 

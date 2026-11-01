@@ -216,8 +216,8 @@ class FakeDb {
     responses: { create: p => p },
     files: { create: p => p },
   }, 'llama-3.3-70b');
-  assert.equal(wrapped.chat.completions.create({ model: 'gpt-5.6-terra', messages: [] }).model, 'llama-3.3-70b');
-  assert.equal(wrapped.responses.create({ model: 'gpt-5.6-terra' }).model, 'llama-3.3-70b');
+  assert.equal(wrapped.chat.completions.create({ model: 'gpt-6.1-terra', messages: [] }).model, 'llama-3.3-70b');
+  assert.equal(wrapped.responses.create({ model: 'gpt-6.1-terra' }).model, 'llama-3.3-70b');
   assert.equal(wrapped.chat.completions.list(), 'list');
   assert.equal(wrapped.files.create({ model: 'x' }).model, 'x', 'only chat/responses are rewritten');
 }
@@ -258,17 +258,64 @@ class FakeDb {
   assert.match(settings, /keyField\.value = ''/, 'the field is cleared before the request');
 
   const app = await readFile(new URL('../public/app.html', import.meta.url), 'utf8');
-  assert.match(app, /data-tab="apikeys"/);
+  // BYOK is LiveLoop-only, for paid LiveLoop plans (owner, 2026-09-26): the
+  // panel opens from LiveLoop → Projects, not from Settings.
+  assert.doesNotMatch(app, /data-tab="apikeys"/, 'no API Keys tab in Settings');
+  assert.match(app, /id="liveloop-files-byok"/, 'the panel opens from LiveLoop');
   assert.match(app, /id="tab-panel-apikeys"/);
+  const client = await readFile(new URL('../public/script.js', import.meta.url), 'utf8');
+  assert.doesNotMatch(client, /data-suite="apikeys"/, 'no API Keys suite outside LiveLoop');
+  assert.match(client, /if \(extraParams\?\.toolId === 'tool-liveloop'\) fetchOptions\.headers\['X-AskSary-Surface'\] = 'liveloop';/);
+  // Site-wide since 2026-10-01 (owner: "byok on pro and max works anywhere"):
+  // "your key" shows wherever keys are in force, not only in LiveLoop.
+  assert.match(settings, /if \(!\(window\.liveLoopByokInForce \|\| window\.liveLoopByokEligible\)\?\.\(\)\) return null;/, 'no "your key" unless keys are in force');
+  const chatSource = await readFile(new URL('../api/web-chat.js', import.meta.url), 'utf8');
+  assert.match(chatSource, /if \(!\(await liveLoopByokAllowed\(\{ db, decoded \}\)\)\) return \{\};/, 'chat loads keys only for Pro, Max and the trial BYOK week, on any surface');
+  assert.match(chatSource, /BYOK_SURFACE_MISMATCH/, 'a request labelled LiveLoop that is not LiveLoop is refused');
+  assert.ok(chatSource.indexOf('BYOK_SURFACE_MISMATCH') < chatSource.indexOf("const isLiveLoopTurn = fields.toolId === 'tool-liveloop';"), 'refused before any turn runs');
+  const assistant = await readFile(new URL('../api/code-assistant.js', import.meta.url), 'utf8');
+  assert.match(assistant, /allow: \(\{ decoded, db \}\) => liveLoopByokAllowed\(\{ db, decoded \}\)/, 'Code Lab, Project Lab and LiveLoop share one gate');
   assert.match(app, /byok-settings\.js/);
   assert.match(app, /href="\/byok-security"/);
 
   const doc = await readFile(new URL('../docs/BYOK-SECURITY.md', import.meta.url), 'utf8');
   const page = await readFile(new URL('../public/byok-security.html', import.meta.url), 'utf8');
-  for (const claim of ['AES‑256‑GCM', 'userProviderKeys', 'allow read, write: if false', 'BYOK_MASTER_KEY', 'zero credits', 'compromised AskSary server']) {
+  for (const claim of ['AES‑256‑GCM', 'userProviderKeys', 'allow read, write: if false', 'BYOK_MASTER_KEY', 'zero credits']) {
     assert.ok(doc.includes(claim), `doc states: ${claim}`);
     assert.ok(page.includes(claim), `page states: ${claim}`);
   }
+  // The on-screen product name is Sary-OS (commit 5686cf2, 2026-09-27); the
+  // internal doc keeps the engine's name. Both still state the threat.
+  assert.ok(doc.includes('compromised AskSary server'), 'doc states: compromised AskSary server');
+  assert.ok(page.includes('compromised Sary-OS server'), 'page states: compromised Sary-OS server');
+}
+
+// ── The gate, run for real ─────────────────────────────────────────────────
+{
+  const { withByokRequest } = await import('../lib/byok-request.js');
+  const { activeByokProviders } = await import('../lib/byok-context.js');
+  const { paidLiveLoopPlan, byokAllowedForPlan } = await import('../lib/byok-liveloop-gate.js');
+  // Every LiveLoop plan (owner, 2026-10-30: "all plan users can use bring your own keys").
+  for (const plan of ['liveloop_lite', 'liveloop_pro', 'liveloop_max']) {
+    assert.equal(byokAllowedForPlan({ source: 'subscription', plan, byok: { active: false } }), true, `${plan} has BYOK`);
+  }
+  assert.equal(byokAllowedForPlan({ source: 'subscription', byok: { active: false } }), false, 'a subscription naming no plan gets no BYOK');
+  assert.equal(byokAllowedForPlan({ source: 'owner' }), true);
+  for (const source of ['locked', 'none', undefined]) assert.equal(byokAllowedForPlan({ source, byok: { active: false } }), false, `${source} gets no BYOK`);
+  // paidLiveLoopPlan stays Pro and Max: Flow's waves read it, not BYOK.
+  assert.equal(paidLiveLoopPlan({ source: 'subscription', plan: 'liveloop_pro' }), true);
+  assert.equal(paidLiveLoopPlan({ source: 'subscription', plan: 'liveloop_max' }), true);
+  assert.equal(paidLiveLoopPlan({ source: 'subscription', plan: 'liveloop_lite' }), false, 'Lite has no waves');
+  assert.equal(paidLiveLoopPlan({ source: 'owner' }), true);
+  // The Sary-OS trial's BYOK week (owner, 2026-10-01), and nothing else.
+  assert.equal(byokAllowedForPlan({ source: 'trial', byok: { active: true } }), true, 'the trial BYOK week');
+  assert.equal(byokAllowedForPlan({ source: 'trial', byok: { active: false, available: true } }), false, 'not before a key is connected');
+  assert.equal(byokAllowedForPlan({ source: 'locked', byok: { active: false } }), false, 'not after the window');
+  const services = () => ({ auth: { verifyIdToken: async () => ({ uid: 'u1', firebase: { sign_in_provider: 'password' } }) }, db: {} });
+  let seen = null;
+  const refused = withByokRequest(async () => { seen = activeByokProviders(); }, services, { allow: async () => false });
+  await refused({ headers: { authorization: 'Bearer t' } }, {});
+  assert.deepEqual(seen, [], 'a request the gate refuses runs with no user keys');
 }
 
 console.log('byok contract: ok');

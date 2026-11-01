@@ -6,7 +6,7 @@
 //
 // Registered accounts only. Anonymous guests and the frozen iOS product never
 // reach this surface. Public contract: docs/BYOK-SECURITY.md.
-import { getFirebaseAdminServices } from '../lib/firebase-admin.js';
+import { getFirebaseAdminServices, primeFirebaseAdmin } from '../lib/firebase-admin.js';
 import { isAnonymousGuestIdentity } from '../lib/guest-access-policy.js';
 import { BYOK_PROVIDERS } from '../lib/byok-context.js';
 import {
@@ -17,7 +17,7 @@ import {
   saveProviderKey,
 } from '../lib/byok-vault.js';
 
-const ALLOWED_ORIGINS = ['capacitor://localhost', 'http://localhost:3000'];
+const ALLOWED_ORIGINS = ['http://localhost:3000'];
 
 function readJsonBody(req) {
   if (req.body && typeof req.body === 'object') return req.body;
@@ -28,10 +28,12 @@ function readJsonBody(req) {
 }
 
 export default async function handler(req, res) {
+
+  primeFirebaseAdmin(req);
   const { db, auth, error: adminInitError } = getFirebaseAdminServices();
 
   const origin = req.headers.origin;
-  if (origin && (origin.startsWith('capacitor://') || ALLOWED_ORIGINS.includes(origin))) {
+  if (origin && ALLOWED_ORIGINS.includes(origin)) {
     res.setHeader('Access-Control-Allow-Origin', origin);
   } else {
     res.setHeader('Access-Control-Allow-Origin', '*');

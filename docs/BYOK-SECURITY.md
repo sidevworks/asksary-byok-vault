@@ -6,7 +6,7 @@
 changes in the same commit. If you find a difference, that is a bug and we want
 to hear about it: team@asksary.com.
 
-AskSary lets you use your own OpenAI, Anthropic, Google Gemini or xAI key, or
+AskSary lets you use your own OpenAI, Anthropic, Google Gemini, xAI or Meta key, or
 any OpenAI‑compatible endpoint. Requests served on your key cost you zero
 AskSary credits. This page describes exactly what happens to that key.
 
