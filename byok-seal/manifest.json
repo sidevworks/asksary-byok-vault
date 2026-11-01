@@ -13,13 +13,13 @@
     },
     {
       "path": "lib/byok-clients.js",
-      "sha256": "b394448dbf930f2b7f46963dd65552f52706016a04e5976270ebbcfb9225dc0d",
-      "bytes": 3215
+      "sha256": "2603e709efb008d20ff6515656ffe6e1f25a1e62975fa5cfcdb1ff295dbe86f1",
+      "bytes": 3261
     },
     {
       "path": "lib/byok-context.js",
-      "sha256": "1c61dde26b7f6e271c6ae90204d6f448209f460fb880fffd90f917aaee0bc71c",
-      "bytes": 2844
+      "sha256": "7f7217ecf4e760a959dad54cf7b2eef083d750453111516f787aa5b2cf6272b2",
+      "bytes": 2968
     },
     {
       "path": "lib/byok-seal.js",
@@ -41,10 +41,10 @@
     "text": "match /userProviderKeys/{userId} {\n      allow read, write: if false;\n    }",
     "sha256": "edd743e9c30bcdc6beb4681bea6a0265bcb9a1fb97b4878b692a8306346a9125"
   },
-  "sealedAt": "2026-11-01T09:13:38.791Z",
-  "sourceCommit": "662b362430428f1f63205fd90f3982a0e8bdc568",
+  "sealedAt": "2026-11-01T09:39:09.903Z",
+  "sourceCommit": "a4bdfb3ad82ea89b4b3d8c80d685661471611c72",
   "reason": "upgrade",
-  "note": "New provider: Meta (api.meta.ai, Muse models). byok-context adds 'meta' to BYOK_PROVIDERS and the Meta catalogue mapping; byok-vault validates a Meta key with GET https://api.meta.ai/v1/models. No change to encryption or storage.",
-  "previousManifestHash": "353d158e8da7c4a2125aa94d12d7868504f4c80f566628f3e514ffe1af88164a",
-  "manifestHash": "8ed4b4d21012e26cfde77b149521c674e893572b8dc71b0f4a60691e89faf8f8"
+  "note": "A custom endpoint is its own model and never stands in for OpenAI. byok-context maps the 'Custom' catalogue provider to the stored 'custom' key, so a custom-endpoint turn is funded by that key; byok-clients comment updated. No change to encryption, validation or storage.",
+  "previousManifestHash": "8ed4b4d21012e26cfde77b149521c674e893572b8dc71b0f4a60691e89faf8f8",
+  "manifestHash": "d66e72d5e52a59e75fb4533372f65e4d739eb0daa132baad379cfc7dbced3d4c"
 }

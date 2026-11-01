@@ -104,9 +104,11 @@ regardless of who pays the provider.
 ## Custom endpoints
 
 A custom entry is an OpenAI‑compatible base URL, a key, and the model name your
-endpoint expects. It stands in for OpenAI when you have not stored an OpenAI
-key. Features that require OpenAI‑only APIs (file search, code interpreter,
-the Responses API) may not work on endpoints that do not implement them.
+endpoint expects. It is a model of its own: it appears in LiveLoop's model list
+under the model name you saved, and only requests you send to it use it, at zero
+Sary-OS credits. It never stands in for OpenAI: a GPT model always runs on
+OpenAI, on your OpenAI key if you have stored one. Safety checks and OpenAI‑only
+features (images, file search, code interpreter) never go to a custom endpoint.
 
 ## Deleting a key
 
