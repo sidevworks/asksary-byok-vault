@@ -1,7 +1,7 @@
-# AskSary BYOK vault (sealed)
+# Sary-OS (Previously called Asksary) BYOK vault (sealed)
 
 This repository is the public, verifiable copy of the code that handles a
-user's own API key inside [AskSary](https://www.asksary.com).
+user's own API key inside [Sary-Os](https://www.sary-os.com).
 
 - **What it protects and how:** [docs/BYOK-SECURITY.md](docs/BYOK-SECURITY.md)
 - **What the seal proves and what it does not:** [docs/BYOK-SEALED-VAULT.md](docs/BYOK-SEALED-VAULT.md)
