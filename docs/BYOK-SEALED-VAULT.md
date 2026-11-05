@@ -134,5 +134,5 @@ can tell.
 ## Reporting a discrepancy
 
 If the verifier fails against a published anchor, or the live endpoint reports a
-hash that is not in the public history, email team@asksary.com with the
+hash that is not in the public history, email connect@sary-os.com with the
 verifier output. Do not include any API key.
