@@ -1,6 +1,6 @@
 # The BYOK sealed vault
 
-This document defines what AskSary may claim about the code that touches your
+This document defines what Sary-OS may claim about the code that touches your
 API key, and how you check that claim yourself. It follows the same discipline
 as the After Genesis sealed‑experiment protocol: a valid hash proves that a
 record has not changed. It does not, by itself, prove anything else, and we say
@@ -47,6 +47,10 @@ never be confused with a value hashed as a manifest:
 - rule digest: `SHA-256("asksary-byok-seal/v1/rule-block\n" + text)`;
 - manifest hash: `SHA-256("asksary-byok-seal/v1/manifest\n" + canonical JSON)`.
 
+The `asksary-` prefix in these tags is the product's former name. The tags are
+fixed forever for seal version 1, so they keep it even though the product is now
+Sary-OS: changing them would change every hash ever published.
+
 Canonical JSON sorts object keys and contains no whitespace, so key order never
 matters. The manifest commits to: seal version, each file's path, digest and
 byte length, the rule block, the seal time, the source commit, the reason
@@ -61,7 +65,7 @@ detectable.
 ## Verifying it yourself
 
 1. Get the anchor from a source you trust: `byok-seal/ANCHORS.md` in the
-   public repository, or the security page at https://www.asksary.com/byok-security.
+   public repository, or the security page at https://www.sary-os.com/byok-security.
 2. Clone the public repository https://github.com/sidevworks/asksary-byok-vault and run:
 
    ```
@@ -74,7 +78,7 @@ detectable.
 3. Ask the live deployment which seal it is running:
 
    ```
-   curl https://www.asksary.com/api/web-byok-seal
+   curl https://www.sary-os.com/api/web-byok-seal
    ```
 
    `deployed.manifestHash` is recomputed from the files on the server at that
@@ -100,7 +104,7 @@ to a value you obtained independently.
   altered to lie there too. The endpoint exists so an honest deployment can be
   cross‑checked by commit; it is not proof on its own. Stronger deployment
   attestation would require build provenance from the hosting platform, which
-  AskSary does not have today.
+  Sary-OS does not have today.
 - **That code outside the sealed set is harmless.** The chat handler that calls
   these files is large and changes often, so it is not sealed. It receives
   decrypted keys through the sealed context for the life of one request. The

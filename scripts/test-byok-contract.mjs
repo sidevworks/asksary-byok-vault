@@ -284,9 +284,9 @@ class FakeDb {
     assert.ok(doc.includes(claim), `doc states: ${claim}`);
     assert.ok(page.includes(claim), `page states: ${claim}`);
   }
-  // The on-screen product name is Sary-OS (commit 5686cf2, 2026-09-27); the
-  // internal doc keeps the engine's name. Both still state the threat.
-  assert.ok(doc.includes('compromised AskSary server'), 'doc states: compromised AskSary server');
+  // The product name is Sary-OS (commit 5686cf2, 2026-09-27; formerly AskSary).
+  // The doc and the page both state the threat under that name.
+  assert.ok(doc.includes('compromised Sary-OS server'), 'doc states: compromised Sary-OS server');
   assert.ok(page.includes('compromised Sary-OS server'), 'page states: compromised Sary-OS server');
 }
 

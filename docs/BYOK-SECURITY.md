@@ -1,4 +1,4 @@
-# How AskSary protects your API keys
+# How Sary-OS protects your API keys
 
 **Status:** published contract. The code that implements this document lives in
 `lib/byok-vault.js`, `lib/byok-context.js`, `lib/byok-clients.js`,
@@ -6,15 +6,15 @@
 changes in the same commit. If you find a difference, that is a bug and we want
 to hear about it: team@asksary.com.
 
-AskSary lets you use your own OpenAI, Anthropic, Google Gemini, xAI or Meta key, or
+Sary-OS lets you use your own OpenAI, Anthropic, Google Gemini, xAI or Meta key, or
 any OpenAI‑compatible endpoint. Requests served on your key cost you zero
-AskSary credits. This page describes exactly what happens to that key.
+Sary-OS credits. This page describes exactly what happens to that key.
 
 ## The short version
 
 - Your key is validated against the provider, encrypted, and stored. The plain
   key is never written to disk, never logged, and never sent back to you.
-- Only AskSary's server can read the encrypted record. Browsers, mobile apps
+- Only Sary-OS's server can read the encrypted record. Browsers, mobile apps
   and other users cannot, even if they know your user id.
 - The key is decrypted only inside the request that needs it and is discarded
   when that request ends. It is never cached across requests.
@@ -27,7 +27,7 @@ AskSary credits. This page describes exactly what happens to that key.
    signed‑in Firebase identity. Anonymous guests cannot store keys.
 2. The server checks the key is a plausible token (printable ASCII, no spaces,
    8 to 512 characters). A custom endpoint URL must be `https://`, must resolve
-   to a public address, and may not point at AskSary's own hosts, private
+   to a public address, and may not point at Sary-OS's own hosts, private
    networks, loopback, link‑local or cloud metadata addresses. This is the
    server‑side request forgery (SSRF) guard.
 3. The server makes one read‑only call to the provider (its "list models"
@@ -49,7 +49,7 @@ AskSary credits. This page describes exactly what happens to that key.
 ## Where the encryption key lives
 
 The master key (`BYOK_MASTER_KEY`, 256 bits) exists only as an environment
-variable on AskSary's server functions. It is not in the repository, not in the
+variable on Sary-OS's server functions. It is not in the repository, not in the
 database, and not reachable from the client. A second variable
 (`BYOK_MASTER_KEY_PREVIOUS`) is accepted for decryption only so the key can be
 rotated without locking anyone out. Each record carries the id of the master
@@ -77,7 +77,7 @@ request.
    the request.
 2. Every provider client in the chat handler is a proxy that reads that
    context. If you have a key for the provider being called, a fresh SDK
-   client is built with your key for this request. Otherwise AskSary's own
+   client is built with your key for this request. Otherwise Sary-OS's own
    client is used.
 3. The billing layer reads the **same** context. If the call is going out on
    your key, the operation is recorded with `fundingSource: "user_key"`, zero
@@ -91,13 +91,13 @@ request.
 
 If the provider rejects your key during a chat (401 or 403), you see a message
 telling you which provider refused it and how to fix it. It is not treated as
-an AskSary outage and is not sent to our error tracker.
+an Sary-OS outage and is not sent to our error tracker.
 
 ## What still costs credits
 
 Only calls that go to a provider you have a key for run at zero credits.
 Everything else is unchanged: image, video, music and 3D generation on
-AskSary's own provider accounts, and any text call to a provider you have not
+Sary-OS's own provider accounts, and any text call to a provider you have not
 added a key for. Rate limits and abuse controls apply to every request
 regardless of who pays the provider.
 
@@ -122,7 +122,7 @@ to project administrators.
 
 We would rather say this plainly than let you assume otherwise.
 
-- **A compromised AskSary server.** Server code that holds the master key can
+- **A compromised Sary-OS server.** Server code that holds the master key can
   decrypt records. That is inherent to any server‑side BYOK design. We limit
   the blast radius by keeping the key decrypted only for the life of a
   request and never logging it, but we cannot make the server unable to read
@@ -147,7 +147,7 @@ verifier and the history of every seal are public at https://github.com/sidevwor
 
 ```
 node scripts/byok-verify.mjs --anchor <manifest hash from ANCHORS.md>
-curl https://www.asksary.com/api/web-byok-seal
+curl https://www.sary-os.com/api/web-byok-seal
 ```
 
 ## Reporting a problem

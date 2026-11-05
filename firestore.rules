@@ -1,5 +1,5 @@
 rules_version = '2';
-// Excerpt of AskSary's firestore.rules: only the sealed BYOK block is exported.
+// Excerpt of Sary-OS's firestore.rules: only the sealed BYOK block is exported.
 // The verifier checks that this exact block is present.
 service cloud.firestore {
   match /databases/{database}/documents {
