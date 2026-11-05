@@ -28,8 +28,8 @@
     },
     {
       "path": "lib/byok-vault.js",
-      "sha256": "5d14db2ad0876d861082fe759073bfb7185dc365efabee758f1bef9fb610c622",
-      "bytes": 15522
+      "sha256": "c2e01a1cdca4e9ec3b986b87ab3ca7b730f2accc72e3190fb5b24c64cfdd4124",
+      "bytes": 15612
     },
     {
       "path": "scripts/byok-verify.mjs",
@@ -41,10 +41,10 @@
     "text": "match /userProviderKeys/{userId} {\n      allow read, write: if false;\n    }",
     "sha256": "edd743e9c30bcdc6beb4681bea6a0265bcb9a1fb97b4878b692a8306346a9125"
   },
-  "sealedAt": "2026-11-01T09:39:09.903Z",
-  "sourceCommit": "a4bdfb3ad82ea89b4b3d8c80d685661471611c72",
+  "sealedAt": "2026-11-05T13:56:25.595Z",
+  "sourceCommit": "3205d43df6925fff87a8708e573008210fb44b83",
   "reason": "upgrade",
-  "note": "A custom endpoint is its own model and never stands in for OpenAI. byok-context maps the 'Custom' catalogue provider to the stored 'custom' key, so a custom-endpoint turn is funded by that key; byok-clients comment updated. No change to encryption, validation or storage.",
-  "previousManifestHash": "8ed4b4d21012e26cfde77b149521c674e893572b8dc71b0f4a60691e89faf8f8",
-  "manifestHash": "d66e72d5e52a59e75fb4533372f65e4d739eb0daa132baad379cfc7dbced3d4c"
+  "note": "Custom-endpoint SSRF guard now also blocks the product's current domain: sary-os.com and *.sary-os.com are rejected like asksary.com. No change to encryption, validation of keys, or storage.",
+  "previousManifestHash": "d66e72d5e52a59e75fb4533372f65e4d739eb0daa132baad379cfc7dbced3d4c",
+  "manifestHash": "ff0150729c63b2abe952fa33079cee853c5a2b20c5efd85a45d03ed6ae7b4c7c"
 }
