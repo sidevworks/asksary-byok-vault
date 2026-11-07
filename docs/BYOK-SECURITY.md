@@ -6,7 +6,9 @@
 changes in the same commit. If you find a difference, that is a bug and we want
 to hear about it: connect@sary-os.com.
 
-Sary-OS lets you use your own OpenAI, Anthropic, Google Gemini, xAI or Meta key, or
+Sary-OS lets you use your own OpenAI, Anthropic, Google Gemini, xAI or Meta key, a HeyGen
+key for Avatar Creator, an ElevenLabs key to speak your own ElevenLabs voices (Avatar
+Creator and Voiceover; only when you choose one of your own voices), or
 any OpenAI‑compatible endpoint. Requests served on your key cost you zero
 Sary-OS credits. This page describes exactly what happens to that key.
 

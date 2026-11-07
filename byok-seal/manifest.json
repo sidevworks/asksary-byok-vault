@@ -18,8 +18,8 @@
     },
     {
       "path": "lib/byok-context.js",
-      "sha256": "7f7217ecf4e760a959dad54cf7b2eef083d750453111516f787aa5b2cf6272b2",
-      "bytes": 2968
+      "sha256": "5d866e3529ad37a4906562e19625db5fc1344a4191436988047110581494658b",
+      "bytes": 3575
     },
     {
       "path": "lib/byok-seal.js",
@@ -28,8 +28,8 @@
     },
     {
       "path": "lib/byok-vault.js",
-      "sha256": "c2e01a1cdca4e9ec3b986b87ab3ca7b730f2accc72e3190fb5b24c64cfdd4124",
-      "bytes": 15612
+      "sha256": "687a49610f75ffe4f8af479c6a85a74c88a29d9088a609a3ba10ddf3489bc3c6",
+      "bytes": 16056
     },
     {
       "path": "scripts/byok-verify.mjs",
@@ -41,10 +41,10 @@
     "text": "match /userProviderKeys/{userId} {\n      allow read, write: if false;\n    }",
     "sha256": "edd743e9c30bcdc6beb4681bea6a0265bcb9a1fb97b4878b692a8306346a9125"
   },
-  "sealedAt": "2026-11-05T13:56:25.595Z",
-  "sourceCommit": "3205d43df6925fff87a8708e573008210fb44b83",
+  "sealedAt": "2026-11-06T21:10:43.176Z",
+  "sourceCommit": "09e2b7b7e705967ee2d6377ebd6a7b2da8694de8+uncommitted-sealed-files",
   "reason": "upgrade",
-  "note": "Custom-endpoint SSRF guard now also blocks the product's current domain: sary-os.com and *.sary-os.com are rejected like asksary.com. No change to encryption, validation of keys, or storage.",
-  "previousManifestHash": "d66e72d5e52a59e75fb4533372f65e4d739eb0daa132baad379cfc7dbced3d4c",
-  "manifestHash": "ff0150729c63b2abe952fa33079cee853c5a2b20c5efd85a45d03ed6ae7b4c7c"
+  "note": "New provider: ElevenLabs (api.elevenlabs.io), to speak a person's own ElevenLabs voices in Avatar Creator and Voiceover. byok-context adds 'elevenlabs' to BYOK_PROVIDERS with no catalogue mapping, so a saved key never makes the site's own speech free; routes fund only their own-voice requests from it explicitly. byok-vault validates an ElevenLabs key with GET https://api.elevenlabs.io/v2/voices?page_size=1 (xi-api-key header). No change to encryption or storage.",
+  "previousManifestHash": "e87b33caab8b95f4ccf81ed493e3ea900fd83a76edc142d9bf4500ed6014bc1f",
+  "manifestHash": "04bb14ecc5c1a00118189cc9b1c194b85631b6564df5d9c4431305aa5cd197f4"
 }
